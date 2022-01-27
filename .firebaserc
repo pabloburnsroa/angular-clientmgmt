@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ng-clientmgt": {
+      "hosting": {
+        "clientmgmt": [
+          "ng-clientmgt"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ng-clientmgt"
+  }
+}
