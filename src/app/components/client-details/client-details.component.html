@@ -1,1 +1,61 @@
-<p>client-details works!</p>
+<div class="row">
+  <div class="col-md-6">
+    <a routerLink="/" class="btn btn-link">
+      <i class="fas fa-arrow-circle-left"></i> Back to Dashboard
+    </a>
+  </div>
+  <div class="col-md-">
+    <div class="btn-group float-end">
+      <a routerLink="/client/edit/{{ id }}" class="btn btn-dark"> Edit </a>
+      <a (click)="onDeleteClick()" class="btn btn-danger"> Delete </a>
+    </div>
+  </div>
+</div>
+<hr />
+
+<div *ngIf="client" class="card">
+  <div class="card-header">{{ client.firstName }} {{ client.lastName }}</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-8 col-md-8">
+        <h4>Client ID: {{ client.id }}</h4>
+      </div>
+      <div class="col-sm-4 col-md-4">
+        <h4>
+          Balance
+          <span
+            [class.text-danger]="hasBalance"
+            [class.text-success]="!hasBalance"
+          >
+            {{ client.balance | currency: "GBP" }}
+          </span>
+          <small>
+            <a (click)="showBalanceUpdateInput = !showBalanceUpdateInput">
+              <i class="fas fa-pen"></i>
+            </a>
+          </small>
+        </h4>
+        <div class="clearfix">
+          <form *ngIf="showBalanceUpdateInput" (submit)="updateBalance()">
+            <div class="input-group">
+              <input
+                type="text"
+                name="balance"
+                class="form-control"
+                [(ngModel)]="client.balance"
+              />
+              <span class="input group-btn">
+                <button type="submit" class="btn btn-primary">Update</button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <ul class="list-group">
+      <li class="list-group-item">Contact Email: {{ client.email }}</li>
+      <li class="list-group-item">Phone Number: {{ client.phone }}</li>
+    </ul>
+  </div>
+</div>

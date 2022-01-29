@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from 'src/app/services/client.service';
 import { Client } from 'src/app/models/Client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-client',
@@ -17,10 +19,16 @@ export class AddClientComponent implements OnInit {
   };
 
   // Disable balance add
-  disableBalanceOnAdd: boolean = true;
-  constructor() {}
+  disableBalanceOnAdd: boolean = false;
+  // Submitted form
+  submitted = false;
+  constructor(private clientService: ClientService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  onSubmit() {}
+  onSubmit(data: Client) {
+     
+    this.clientService.newClient(data);
+    this.router.navigate(['/']);
+  }
 }
