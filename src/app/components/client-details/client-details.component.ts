@@ -23,13 +23,12 @@ export class ClientDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.clientService.getClient(this.id).subscribe((client) => {
-      this.client = client;
-      // console.log(this.client);
-      if (client !== null) {
-        if (client.balance! > 0) {
+      if (client) {
+        if (client && client.balance! > 0) {
           this.hasBalance = true;
         }
       }
+      this.client = client;
     });
     // this.client = this.route.paramMap.pipe(
     //   switchMap((params: ParamMap) =>
@@ -41,8 +40,8 @@ export class ClientDetailsComponent implements OnInit {
   onDeleteClick() {
     if (confirm('Are you sure?')) {
       this.clientService.deleteClient(this.client);
+      this.router.navigate(['/']);
     }
-    this.router.navigate(['/']);
   }
 
   updateBalance() {
